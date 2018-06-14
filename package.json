@@ -4,7 +4,8 @@
   "description": "learning how to use electron",
   "main": "main.js",
   "scripts": {
-    "test": "electron ."
+    "test": "electron .",
+	"start": "main.js"
   },
   "repository": {
     "type": "git",
