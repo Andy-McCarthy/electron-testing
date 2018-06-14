@@ -1,0 +1,19 @@
+{
+  "name": "my-app",
+  "version": "1.0.0",
+  "description": "learning how to use electron",
+  "main": "main.js",
+  "scripts": {
+    "test": "electron ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Andy-McCarthy/electron-testing.git"
+  },
+  "author": "Andy McCarthy",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Andy-McCarthy/electron-testing/issues"
+  },
+  "homepage": "https://github.com/Andy-McCarthy/electron-testing#readme"
+}
