@@ -1,0 +1,150 @@
+﻿<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>Electron Test</title>
+    <link rel="stylesheet" href="./style.css" />
+</head>
+<body>
+    <!--input for session selection-->
+    <input id="jsonfile" type="file" onchange="drawall(event)" multiple />
+    <!--choose an individual play-->
+    <select id="selectplay"></select>
+    <!--Export PDF Assessment-->
+    <button id="exportpdf" onclick="pdfexport()">Export Assessment PDF</button>
+    <!--Exit App-->
+    <button id="exit" onclick="shutdown()">Exit App</button>
+    <!--Tabs links for various pages-->
+    <div class="tab">
+        <button class="tablinks" onclick="openTabs(event,'animation')" id="defaultOpen">Play Animation</button>
+        <button class="tablinks" onclick="openTabs(event,'playinfo')">Play Information</button>
+        <button class="tablinks" onclick="openTabs(event,'qbperformance')">QB Performance</button>
+        <button class="tablinks" onclick="openTabs(event,'sessionstats')">Session Statistics</button>
+    </div>
+    <!--Animation Tab-->
+    <div id="animation" class="tabcontent">
+        <!--play/pause button-->
+        <div class="buttoncontainer">
+            <button class="controls" id="playpause" onclick="playpause()">&#9658</button>
+        </div>
+        <!--slider to control play-->
+        <div class="slidecontainer">
+            <input class="controls" id="playslider" type="range" min="0" max="100" value="0" step="1" oninput="update()" />
+        </div>
+        <!--static canvas for field background-->
+        <canvas class="ffield" id="field" style="z-index: 1; border:1px solid #000000;" width="800" height="525"></canvas>
+        <!--canvas for drawing first down/los markers and play calls-->
+        <canvas class="ffield" id="markers" style="z-index: 2;" width="800" height="525"></canvas>
+        <!--canvas for drawing player locations-->
+        <canvas class="ffield" id="players" style="z-index: 3;" width="800" height="525"></canvas>
+        <!--radio buttons for position/jersey numbers-->
+        <div class="radio">
+            <form>
+                <p>Player Labels:</p>
+                <label class="block"><input type="radio" name="radgroup" value="J" checked="checked" onchange="update()" />Jersey Numbers</label>
+                <label class="block"><input type="radio" name="radgroup" value="P" onchange="update()" />Roster Positions</label>
+                <label class="block"><input type="radio" name="radgroup" value="N" onchange="update()" />No Labels</label>
+            </form>
+        </div>
+        <!--checkboxes for play calls and view window-->
+        <div class="checkboxes">
+            <p>Display Options:</p>
+            <label class="block"><input type="checkbox" id="qbviewer" checked="checked" onclick="update()" />QB View Window</label>
+            <label class="block"><input type="checkbox" id="offplay" onclick="update()" />Show Offense Play</label>
+            <label class="block"><input type="checkbox" id="defplay" onclick="update()" />Show Defense Play</label>
+            <label class="block"><input type="checkbox" id="nodef" onclick="update()" />Remove Defense</label>
+        </div>
+    </div>
+    <!--Play Information Tab-->
+    <div id="playinfo" class="tabcontent">
+        <p id="playdata"></p>
+        <!--Offensive Personnel-->
+        <table id="opersonnel">
+            <tr>
+                <th>Pos</th>
+                <th>#</th>
+                <th>Player</th>
+            </tr>
+        </table>
+        <!--Defensive Personnel-->
+        <table id="dpersonnel">
+            <tr>
+                <th>Pos</th>
+                <th>#</th>
+                <th>Player</th>
+            </tr>
+        </table>
+        <!--Offensive Play Information-->
+        <table id="oplayt">
+            <tr>
+                <th>Detail</th>
+                <th>Value</th>
+            </tr>
+        </table>
+        <!--Defensive Play Information-->
+        <table id="dplayt">
+            <tr>
+                <th>Detail</th>
+                <th>Value</th>
+            </tr>
+        </table>
+        <!--Receiver Route Detail-->
+        <table id="rrdetail">
+            <tr>
+                <th>#</th>
+                <th>Receiver</th>
+                <th>Route</th>
+                <th>Depth</th>
+                <th>Max Separation</th>
+                <th>Avg Separation</th>
+                <th>Targeted</th>
+            </tr>
+        </table>
+        <!--PercIT Image-->
+        <canvas id="percitcanvas"></canvas>
+    </div>
+    <!--QB Performance Tab-->
+    <div id="qbperformance" class="tabcontent">
+        <table id="qbp">
+            <tr>
+                <th>Metric</th>
+                <th>Value</th>
+            </tr>
+        </table>
+        <table id="dropback">
+            <tr>
+                <th>Metric</th>
+                <th>Value</th>
+            </tr>
+        </table>
+        <!--Accuracy Image Canvas-->
+        <canvas id="accuracycanvas"></canvas>
+    </div>
+    <!--Session Statistics Tab-->
+    <div id="sessionstats" class="tabcontent">
+        <p id="boxscore"></p>
+        <table id="overall">
+            <tr>
+                <th>Statistic</th>
+                <th>Value</th>
+            </tr>
+        </table>
+        <table id="byroute">
+            <tr>
+                <th>Route</th>
+                <th>Run</th>
+                <th>Targeted</th>
+                <th>Complete</th>
+                <th>TD</th>
+                <th>Yards</th>
+            </tr>
+        </table>
+        <!--By Zone Image-->
+        <canvas id="zonecanvas"></canvas>
+        <!--Target Summary Image-->
+        <canvas id="targetsum"></canvas>
+    </div>
+    <script src="main.js"></script>
+</body>
+</html>

@@ -5,7 +5,7 @@
   "main": "main.js",
   "scripts": {
     "test": "electron .",
-	"start": "main.js"
+	  "start": "starter.js"
   },
   "repository": {
     "type": "git",
